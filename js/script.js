@@ -4,13 +4,13 @@ $(document).foundation().ready(function() {
 
   var draftdata = {};
 
-  $.getJSON( '/json/data/mlb_draft_rounds.json' ).done(function( data ) {
+  $.getJSON( '../json/data/mlb_draft_rounds.json' ).done(function( data ) {
     draftdata = data;
     drawchart("1999", data);
   });
 
   function drawchart(year, data) {
-    var overallpickdata = [], 
+    var overallpickdata = [],
       wardata = [],
       namedata = [];
     $.each( data, function( i, item ) {
@@ -18,7 +18,7 @@ $(document).foundation().ready(function() {
         console.log(item.name.replace(' (minors)',''), item.war);
         overallpickdata.push(item.overall_pick);
         wardata.push(item.war ? item.war : 0);
-        namedata.push(item.name.replace(' (minors)',''))
+        namedata.push(item.name.replace(' (minors)',''));
       }
     });
     new Chartist.Line('.ct-chart', {
