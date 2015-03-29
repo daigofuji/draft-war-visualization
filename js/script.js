@@ -12,15 +12,31 @@ $(document).foundation().ready(function() {
   function drawchart(year, data) {
     var overallpickdata = [],
       wardata = [],
-      namedata = [];
+      namedata = [],
+      players = [];
+
+    // update title
+    $('.js-title-year').text(year);
+    // process data
     $.each( data, function( i, item ) {
       if(item.year === year) {
         console.log(item.name.replace(' (minors)',''), item.war);
+        // list preparation
+        players.push( "<li class='player" + i + "'>" + item.name.replace(' (minors)','') + "<strong>" + item.war + "</strong></li>" );
+        // chart preparation
         overallpickdata.push(item.overall_pick);
         wardata.push(item.war ? item.war : 0);
         namedata.push(item.name.replace(' (minors)',''));
       }
     });
+
+    //update the list
+    $( "<ol/>", {
+      "class": "my-new-list",
+      html: players.join( "" )
+    }).appendTo( ".js-player-list" );
+    
+    // chartist chart
     new Chartist.Line('.ct-chart', {
       labels: overallpickdata,
       series: [
@@ -31,7 +47,8 @@ $(document).foundation().ready(function() {
       ]
     },
     {showLine: false});
-     // creating tool tips
+
+     // creating tool tips -- out of box
     var $chart = $('.ct-chart');
     var $toolTip = $chart
       .append('<div class="tooltip"></div>')
@@ -57,7 +74,7 @@ $(document).foundation().ready(function() {
   // Drop down to redraw the chart
   $('.js-dropdown').change(function(event) {
     console.log(event.currentTarget.value);
-    $('.ct-chart').empty();
+    $('.js-chart, .js-player-list').empty();
     drawchart(event.currentTarget.value, draftdata);
   });
 

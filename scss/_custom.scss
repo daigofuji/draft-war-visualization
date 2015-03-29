@@ -5,3 +5,18 @@ h1, h2, h3, h4, h5, h6 {
 	@media #{$large-up} {
 	}
 }
+
+.player-list {
+	
+	ol {
+		li {
+			font-size: em-calc(10);
+			line-height: em-calc(10);
+			strong {
+				display: inline-block;
+				float:right;
+				color: #d70206; 
+			}
+		}
+	}
+}
