@@ -22,7 +22,7 @@ $(document).foundation().ready(function() {
       if(item.year === year) {
         console.log(item.name.replace(' (minors)',''), item.war);
         // list preparation
-        players.push( "<li class='player" + i + "'>" + item.name.replace(' (minors)','') + "<strong>" + item.war + "</strong></li>" );
+        players.push( "<li class='player" + i + "'>" + item.pos + " " + item.name.replace(' (minors)','') + " (" + item.team + ", " + item.round + ")" + "<strong>" + item.war + "</strong></li>" );
         // chart preparation
         overallpickdata.push(item.overall_pick);
         wardata.push(item.war ? item.war : 0);
