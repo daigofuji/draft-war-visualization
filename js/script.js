@@ -4,7 +4,7 @@ $(document).foundation().ready(function() {
 
   var draftdata = {};
 
-  $.getJSON( '../json/data/mlb_draft_rounds.json' ).done(function( data ) {
+  $.getJSON( 'http://daigofuji.github.io/draft-war-visualization/json/data/mlb_draft_rounds.json' ).done(function( data ) {
     draftdata = data;
     drawchart("1999", data);
   });
