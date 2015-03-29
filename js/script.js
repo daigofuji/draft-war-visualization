@@ -4,7 +4,7 @@ $(document).foundation().ready(function() {
 
   var draftdata = {};
 
-  $.getJSON( 'http://daigofuji.github.io/draft-war-visualization/json/data/mlb_draft_rounds.json' ).done(function( data ) {
+  $.getJSON( '../json/data/mlb_draft_rounds.json' ).done(function( data ) {
     draftdata = data;
     drawchart("1999", data);
   });
@@ -22,7 +22,14 @@ $(document).foundation().ready(function() {
       if(item.year === year) {
         console.log(item.name.replace(' (minors)',''), item.war);
         // list preparation
-        players.push( "<li class='player" + i + "'>" + item.pos + " " + item.name.replace(' (minors)','') + " (" + item.team + ", " + item.round + ")" + "<strong>" + item.war + "</strong></li>" );
+        var li = "<li class='player" + i + "'>";
+        li += item.pos + " ";
+        li += item.war ? "<b>" : "";
+        li += item.name.replace(' (minors)','');
+        li += item.war ? "</b>" : "";
+        li += " (" + item.team + ", " + item.round + ")";
+        li += "<strong>" + item.war + "</strong></li>"
+        players.push( li );
         // chart preparation
         overallpickdata.push(item.overall_pick);
         wardata.push(item.war ? item.war : 0);
