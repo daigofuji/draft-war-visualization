@@ -2,36 +2,33 @@
 // Documentation can be found at: http://foundation.zurb.com/docs
 $(document).foundation().ready(function() {
 
-  var data = times(52).map(Math.random).reduce(function(data, rnd, index) {
-    data.labels.push(index + 1);
-    data.series.forEach(function(series) {
-      series.push(Math.random() * 100)
-    });
-
-    return data;
-  }, {
-    labels: [],
-    series: times(4).map(function() { return new Array() })
+  new Chartist.Line('.ct-chart', {
+    labels: ['1', '2', '3', '4', '5', '6'],
+    series: [
+      {
+        name: 'WAR',
+        data: [20,28.6,-1.2,34.3,36,9.7,37.6,,4.5,8.8,33.2,14.3,-0.1,0,0.3,2.3,,-0.7,1,,10.1,0.1,24.4,2,15.2,-1.9,2.1,13.2,,-0.6,,-0.1,,-1.3,0.8,3.1,-1.2,,,2.5,,13,,-0.1,8.6,,0.8,-2.7]
+      }
+    ]
   });
-
-  var options = {
-    showLine: false,
-    axisX: {
-      labelInterpolationFnc: function(value, index) {
-        return index % 13 === 0 ? 'W' + value : null;
-      }
-    }
-  };
-
-  var responsiveOptions = [
-    ['screen and (min-width: 640px)', {
-      axisX: {
-        labelInterpolationFnc: function(value, index) {
-          return index % 4 === 0 ? 'W' + value : null;
-        }
-      }
-    }]
-  ];
-
-  new Chartist.Line('.ct-chart', data, options, responsiveOptions);
+  var $chart = $('.ct-chart');
+  var $toolTip = $chart
+    .append('<div class="tooltip"></div>')
+    .find('.tooltip')
+    .hide();
+  $chart.on('mouseenter', '.ct-point', function() {
+    var $point = $(this),
+      value = $point.attr('ct:value'),
+      seriesName = $point.parent().attr('ct:series-name');
+    $toolTip.html(seriesName + '<br>' + value).show();
+  });
+  $chart.on('mouseleave', '.ct-point', function() {
+    $toolTip.hide();
+  });
+  $chart.on('mousemove', function(event) {
+    $toolTip.css({
+      left: (event.offsetX || event.originalEvent.layerX) - $toolTip.width() / 2 - 10,
+      top: (event.offsetY || event.originalEvent.layerY) - $toolTip.height() - 40
+    });
+  });
 });
