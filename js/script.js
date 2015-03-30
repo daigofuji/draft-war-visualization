@@ -45,7 +45,9 @@ $(document).foundation().ready(function() {
     }).appendTo( ".js-player-list" );
     
     // chartist chart
-    new Chartist.Line('.ct-chart', {
+    new Chartist.Line('.ct-chart',
+    {
+      //data
       labels: overallpickdata,
       series: [
         {
@@ -54,7 +56,15 @@ $(document).foundation().ready(function() {
         }
       ]
     },
-    {showLine: false});
+    {
+      //options
+      showLine: false,
+      axisX: {
+        labelInterpolationFnc: function(value, index) {
+          return (index + 1) % 50 === 0 ? value : null;
+        }
+      }
+    });
 
      // creating tool tips -- out of box 
      // http://gionkunz.github.io/chartist-js/examples.html
