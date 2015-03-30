@@ -26,7 +26,7 @@ $(document).foundation().ready(function() {
         var li = "<li class='player" + i + "'>";
         li += item.pos + " ";
         li += item.war ? "<b>" : "";
-        li += item.name.replace(' (minors)','');
+        li += item.name.replace(' (minors)','').replace('*','');
         li += item.war ? "</b>" : "";
         li += " (" + item.team + " - " + item.round + ")";
         li += "<strong>" + item.war + "</strong></li>";
