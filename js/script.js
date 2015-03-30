@@ -4,12 +4,13 @@ $(document).foundation().ready(function() {
 
   var draftdata = {};
 
-  $.getJSON( '../json/data/mlb_draft_rounds.json' ).done(function( data ) {
+  $.getJSON( 'json/data/mlb_draft_rounds.json' ).done(function( data ) {
     draftdata = data;
     drawchart("1999", data);
   });
 
   function drawchart(year, data) {
+    $('.js-chart, .js-player-list').empty();
     var overallpickdata = [],
       wardata = [],
       namedata = [],
@@ -27,8 +28,8 @@ $(document).foundation().ready(function() {
         li += item.war ? "<b>" : "";
         li += item.name.replace(' (minors)','');
         li += item.war ? "</b>" : "";
-        li += " (" + item.team + ", " + item.round + ")";
-        li += "<strong>" + item.war + "</strong></li>"
+        li += " (" + item.team + " - " + item.round + ")";
+        li += "<strong>" + item.war + "</strong></li>";
         players.push( li );
         // chart preparation
         overallpickdata.push(item.overall_pick);
@@ -39,7 +40,7 @@ $(document).foundation().ready(function() {
 
     //update the list
     $( "<ol/>", {
-      "class": "my-new-list",
+      "class": "draft-list",
       html: players.join( "" )
     }).appendTo( ".js-player-list" );
     
@@ -55,7 +56,8 @@ $(document).foundation().ready(function() {
     },
     {showLine: false});
 
-     // creating tool tips -- out of box
+     // creating tool tips -- out of box 
+     // http://gionkunz.github.io/chartist-js/examples.html
     var $chart = $('.ct-chart');
     var $toolTip = $chart
       .append('<div class="tooltip"></div>')
@@ -81,7 +83,6 @@ $(document).foundation().ready(function() {
   // Drop down to redraw the chart
   $('.js-dropdown').change(function(event) {
     console.log(event.currentTarget.value);
-    $('.js-chart, .js-player-list').empty();
     drawchart(event.currentTarget.value, draftdata);
   });
 
