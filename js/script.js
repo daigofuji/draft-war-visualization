@@ -64,7 +64,17 @@ $(document).foundation().ready(function() {
           return (index + 1) % 50 === 0 ? value : null;
         }
       }
-    });
+    },
+    [
+      //responsive options
+      ['screen and (min-width: 800px)', {
+        axisX: {
+          labelInterpolationFnc: function(value, index) {
+            return (index + 1) % 20 === 0 ? value : null;
+          }
+        }
+      }]
+    ]);
 
      // creating tool tips -- out of box 
      // http://gionkunz.github.io/chartist-js/examples.html
