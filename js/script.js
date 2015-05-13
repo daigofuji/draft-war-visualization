@@ -33,7 +33,7 @@ $(document).foundation().ready(function() {
         players.push( li );
         // chart preparation
         overallpickdata.push(item.overall_pick);
-        wardata.push(item.war ? item.war : 0);
+        wardata.push(item.war ? item.war : null);
         namedata.push(item.name.replace(' (minors)',''));
       }
     });
